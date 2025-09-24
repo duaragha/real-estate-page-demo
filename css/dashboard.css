@@ -319,9 +319,9 @@
 }
 
 .section-title {
-    font-size: 1.6rem;
+    font-size: 3rem;
     font-weight: 700;
-    color: rgba(255, 255, 255, 0.95);
+    color: #000000;
     margin: 0 0 2rem 0;
     position: relative;
     display: inline-block;

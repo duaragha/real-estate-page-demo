@@ -8,12 +8,12 @@ class RealEstateAnalytics {
         this.interactions = [];
         this.startTime = Date.now();
         this.interactionCounts = {
-            inquiries: 0,
-            calculatorUses: 0,
-            propertiesViewed: 0,
-            searches: 0,
-            propertiesSaved: 0,
-            directionsRequested: 0
+            inquiries: 47,
+            calculatorUses: 128,
+            propertiesViewed: 892,
+            searches: 315,
+            propertiesSaved: 73,
+            directionsRequested: 156
         };
         this.loadCountsFromStorage();
         this.init();
