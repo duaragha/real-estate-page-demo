@@ -1672,56 +1672,7 @@ textarea:focus {
    Analytics Dashboard Section
    ===================================== */
 
-.analytics-section {
-    padding: 100px 0;
-    background: linear-gradient(135deg,
-        var(--primary-blue) 0%,
-        var(--trust-navy) 50%,
-        var(--luxury-navy) 100%
-    );
-    position: relative;
-    overflow: hidden;
-}
-
-.analytics-section::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-    animation: pulse 15s ease-in-out infinite;
-}
-
-@keyframes pulse {
-    0%, 100% { transform: scale(1) rotate(0deg); }
-    50% { transform: scale(1.1) rotate(180deg); }
-}
-
-.analytics-section .section-header {
-    position: relative;
-    z-index: 1;
-}
-
-.analytics-section .section-title {
-    color: #fff;
-    font-size: 3.5rem;
-    font-weight: 700;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-    background: linear-gradient(45deg, #fff, #f0f0ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.analytics-section .section-subtitle {
-    color: rgba(255,255,255,0.9);
-    font-size: 1.3rem;
-    max-width: 600px;
-    margin: 0 auto;
-}
+/* Analytics section moved to dashboard.css - removing duplicate */
 
 .analytics-dashboard {
     margin-top: 3rem;
@@ -2099,11 +2050,23 @@ textarea:focus {
     padding: 100px 0;
     background: var(--bg-analytics);
     color: var(--text-primary);
+    position: relative;
 }
 
-.analytics-section .section-title,
-.analytics-section .section-subtitle {
+.analytics-section .section-title {
     color: var(--text-primary);
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--spacing-md);
+    text-align: center;
+}
+
+.analytics-section .section-subtitle {
+    color: var(--text-secondary);
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto var(--spacing-3xl) auto;
+    font-size: var(--font-size-lg);
 }
 
 .analytics-dashboard {
@@ -2113,14 +2076,21 @@ textarea:focus {
 
 .analytics-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: var(--spacing-lg);
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-xl);
     margin-bottom: var(--spacing-3xl);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .analytics-grid {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-lg);
+    }
+}
+
+@media (max-width: 640px) {
+    .analytics-grid {
+        grid-template-columns: 1fr;
         gap: var(--spacing-md);
     }
 }
@@ -2129,19 +2099,83 @@ textarea:focus {
     background: var(--bg-primary);
     border: 1px solid var(--border-primary);
     border-radius: var(--radius-xl);
-    padding: var(--spacing-lg);
+    padding: var(--spacing-xl);
     box-shadow: var(--shadow-lg);
-    transition: var(--transition-normal);
+    transition: all var(--transition-normal);
     position: relative;
     overflow: hidden;
+    border-left: 4px solid var(--accent-green);
 }
 
 .analytics-card:hover {
-    transform: translateY(-2px);
+    transform: translateY(-4px);
     box-shadow: var(--shadow-xl);
-    background: var(--bg-primary);
-    border-color: var(--primary-blue);
+    border-left-color: var(--primary-blue);
 }
+
+.analytics-card.metric-card {
+    text-align: center;
+    padding: var(--spacing-2xl);
+}
+
+.metric-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+}
+
+.metric-header h3 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.metric-header i {
+    font-size: var(--font-size-xl);
+    color: var(--accent-green);
+    background: rgba(16, 185, 129, 0.1);
+    padding: var(--spacing-sm);
+    border-radius: var(--radius-lg);
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.metric-value {
+    font-size: var(--font-size-5xl);
+    font-weight: var(--font-weight-extrabold);
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-md);
+    line-height: 1;
+}
+
+.metric-change {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-xs);
+}
+
+.metric-change.positive {
+    color: var(--success-color);
+}
+
+.metric-change.negative {
+    color: var(--error-color);
+}
+
+.metric-change i {
+    font-size: var(--font-size-xs);
+}
+
+/* Hover rule already defined above */
 
 .analytics-card::before {
     content: '';
