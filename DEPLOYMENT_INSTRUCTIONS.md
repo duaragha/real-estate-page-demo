@@ -31,14 +31,17 @@ git push -u origin main
 ### 1. Deploy to Vercel
 1. Go to https://vercel.com/new
 2. Import your GitHub repository (`real-estate-page-demo`)
-3. Use these settings:
+3. Vercel will automatically detect the `vercel.json` configuration
+4. If needed, use these settings:
    - **Framework Preset:** Other
    - **Root Directory:** ./
-   - **Build Command:** (leave empty - static site)
+   - **Build Command:** (leave empty)
    - **Output Directory:** ./
    - **Install Command:** (leave empty)
 
-4. Click "Deploy"
+5. Click "Deploy"
+
+**Note:** The `vercel.json` file handles the static site configuration automatically.
 
 ### 2. Custom Domain (Optional)
 After deployment, you can add a custom domain in Vercel settings.
