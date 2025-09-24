@@ -4,13 +4,6 @@
   "outputDirectory": "./",
   "installCommand": "",
   "framework": null,
-  "functions": {},
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/$1"
-    }
-  ],
   "headers": [
     {
       "source": "/(.*)",
