@@ -255,9 +255,9 @@ input, select, textarea {
 }
 
 .section-title {
-    font-size: var(--font-size-4xl);
-    font-weight: var(--font-weight-bold);
-    color: var(--text-primary);
+    font-size: var(--font-size-5xl);
+    font-weight: var(--font-weight-extrabold);
+    color: #000000;
     margin-bottom: var(--spacing-md);
     text-align: center;
     line-height: var(--line-height-tight);
@@ -279,7 +279,7 @@ input, select, textarea {
 
 @media (max-width: 768px) {
     .section-title {
-        font-size: var(--font-size-3xl);
+        font-size: var(--font-size-4xl);
     }
 }
 
@@ -1468,7 +1468,7 @@ input, select, textarea {
     }
 
     .section-title {
-        font-size: 1.75rem;
+        font-size: 2.25rem;
     }
 
     .stats-grid {
@@ -2304,6 +2304,22 @@ textarea:focus {
     border-left-color: var(--primary-blue);
 }
 
+.property-stat-item:hover .property-info h4 {
+    color: var(--text-primary);
+}
+
+.property-stat-item:hover .property-info p {
+    color: var(--text-secondary);
+}
+
+.property-stat-item:hover .property-metric .value {
+    color: var(--primary-blue);
+}
+
+.property-stat-item:hover .property-metric .label {
+    color: var(--text-secondary);
+}
+
 .property-thumbnail {
     width: 64px;
     height: 64px;
@@ -2322,12 +2338,14 @@ textarea:focus {
     color: var(--text-primary);
     margin: 0 0 var(--spacing-xs) 0;
     line-height: var(--line-height-tight);
+    transition: var(--transition-normal);
 }
 
 .property-info p {
     font-size: var(--font-size-sm);
     color: var(--text-secondary);
     margin: 0;
+    transition: var(--transition-normal);
 }
 
 .property-metrics {
@@ -2353,6 +2371,7 @@ textarea:focus {
     font-weight: var(--font-weight-bold);
     color: var(--primary-blue);
     line-height: 1;
+    transition: var(--transition-normal);
 }
 
 .property-metric .label {
@@ -2360,6 +2379,7 @@ textarea:focus {
     color: var(--text-secondary);
     margin-top: var(--spacing-xs);
     font-weight: var(--font-weight-medium);
+    transition: var(--transition-normal);
 }
 
 .analytics-card::before {
