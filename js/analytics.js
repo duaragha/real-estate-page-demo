@@ -7,6 +7,15 @@ class RealEstateAnalytics {
     constructor() {
         this.interactions = [];
         this.startTime = Date.now();
+        this.interactionCounts = {
+            inquiries: 0,
+            calculatorUses: 0,
+            propertiesViewed: 0,
+            searches: 0,
+            propertiesSaved: 0,
+            directionsRequested: 0
+        };
+        this.loadCountsFromStorage();
         this.init();
     }
 
@@ -27,7 +36,7 @@ class RealEstateAnalytics {
         // Force update immediately to show stats
         setTimeout(() => {
             this.updateMetrics();
-            this.loadRecentActivity();
+            this.updateInteractionStats();
             this.loadTopPerformingProperties();
         }, 100);
     }
@@ -36,8 +45,8 @@ class RealEstateAnalytics {
         // Update key metrics
         this.updateMetrics();
 
-        // Load recent activity
-        this.loadRecentActivity();
+        // Update interaction stats
+        this.updateInteractionStats();
 
         // Load top performing properties
         this.loadTopPerformingProperties();
@@ -140,6 +149,18 @@ class RealEstateAnalytics {
                 }
             }
 
+            // Track directions button clicks
+            if (e.target.closest('[onclick*="getDirections"]')) {
+                const propertyCard = e.target.closest('.property-card');
+                if (propertyCard) {
+                    this.trackInteraction('get_directions', {
+                        propertyId: propertyCard.dataset.propertyId,
+                        propertyType: propertyCard.dataset.type,
+                        timestamp: Date.now()
+                    });
+                }
+            }
+
             // Track mortgage calculator usage
             if (e.target.id === 'calculate-mortgage') {
                 const homePrice = document.getElementById('home-price')?.value;
@@ -226,11 +247,15 @@ class RealEstateAnalytics {
         this.interactions.push(interaction);
         console.log(`📈 Tracked: ${type}`, data);
 
-        // Update real-time activity feed
-        this.updateActivityFeed(interaction);
+        // Update interaction counters
+        this.incrementCounter(type);
+
+        // Update interaction stats display
+        this.updateInteractionStats();
 
         // Store in local storage for persistence
         this.saveInteractionsToStorage();
+        this.saveCountsToStorage();
     }
 
     getSessionId() {
@@ -242,68 +267,64 @@ class RealEstateAnalytics {
         return sessionId;
     }
 
-    loadRecentActivity() {
-        const activityFeed = document.getElementById('activity-feed');
-        if (!activityFeed) return;
+    incrementCounter(interactionType) {
+        switch (interactionType) {
+            case 'contact_form_submit':
+                this.interactionCounts.inquiries++;
+                break;
+            case 'mortgage_calculation':
+                this.interactionCounts.calculatorUses++;
+                break;
+            case 'property_view':
+                this.interactionCounts.propertiesViewed++;
+                break;
+            case 'property_search':
+                this.interactionCounts.searches++;
+                break;
+            case 'save_property':
+                this.interactionCounts.propertiesSaved++;
+                break;
+            case 'get_directions':
+                this.interactionCounts.directionsRequested++;
+                break;
+        }
+    }
 
-        // Generate sample recent activity
-        const activities = [
-            {
-                type: 'property_view',
-                title: 'Property Viewed',
-                details: 'Modern Downtown Condo - $750,000',
-                time: '2 minutes ago',
-                icon: 'fa-eye'
-            },
-            {
-                type: 'save_property',
-                title: 'Property Saved',
-                details: 'Luxury Family Home - $1,250,000',
-                time: '5 minutes ago',
-                icon: 'fa-heart'
-            },
-            {
-                type: 'property_search',
-                title: 'Search Performed',
-                details: 'Downtown area, Condos, $500K-$1M',
-                time: '12 minutes ago',
-                icon: 'fa-search'
-            },
-            {
-                type: 'mortgage_calculation',
-                title: 'Mortgage Calculated',
-                details: 'Home price: $685,000, Down: $137,000',
-                time: '18 minutes ago',
-                icon: 'fa-calculator'
-            },
-            {
-                type: 'share_property',
-                title: 'Property Shared',
-                details: 'Spacious Townhouse - $685,000',
-                time: '25 minutes ago',
-                icon: 'fa-share'
-            },
-            {
-                type: 'contact_form_submit',
-                title: 'Contact Form Sent',
-                details: 'Inquiry about Executive Penthouse',
-                time: '32 minutes ago',
-                icon: 'fa-envelope'
+    updateInteractionStats() {
+        // Update each counter in the UI
+        this.updateCounter('inquiries-count', this.interactionCounts.inquiries);
+        this.updateCounter('calculator-uses', this.interactionCounts.calculatorUses);
+        this.updateCounter('properties-viewed', this.interactionCounts.propertiesViewed);
+        this.updateCounter('searches-performed', this.interactionCounts.searches);
+        this.updateCounter('properties-saved', this.interactionCounts.propertiesSaved);
+        this.updateCounter('directions-requested', this.interactionCounts.directionsRequested);
+    }
+
+    updateCounter(elementId, value) {
+        const element = document.getElementById(elementId);
+        if (element) {
+            element.textContent = value.toLocaleString();
+        }
+    }
+
+    loadCountsFromStorage() {
+        try {
+            const stored = localStorage.getItem('real_estate_interaction_counts');
+            if (stored) {
+                const savedCounts = JSON.parse(stored);
+                this.interactionCounts = { ...this.interactionCounts, ...savedCounts };
             }
-        ];
+        } catch (e) {
+            console.warn('Could not load interaction counts from storage:', e);
+        }
+    }
 
-        activityFeed.innerHTML = activities.map(activity => `
-            <div class="activity-item">
-                <div class="activity-icon">
-                    <i class="fas ${activity.icon}" aria-hidden="true"></i>
-                </div>
-                <div class="activity-content">
-                    <div class="activity-title">${activity.title}</div>
-                    <div class="activity-details">${activity.details}</div>
-                </div>
-                <div class="activity-time">${activity.time}</div>
-            </div>
-        `).join('');
+    saveCountsToStorage() {
+        try {
+            localStorage.setItem('real_estate_interaction_counts', JSON.stringify(this.interactionCounts));
+        } catch (e) {
+            console.warn('Could not save interaction counts to storage:', e);
+        }
     }
 
     loadTopPerformingProperties() {
@@ -365,59 +386,7 @@ class RealEstateAnalytics {
         `).join('');
     }
 
-    updateActivityFeed(interaction) {
-        const activityFeed = document.getElementById('activity-feed');
-        if (!activityFeed) return;
-
-        const iconMap = {
-            property_view: 'fa-eye',
-            save_property: 'fa-heart',
-            share_property: 'fa-share',
-            property_search: 'fa-search',
-            mortgage_calculation: 'fa-calculator',
-            contact_form_submit: 'fa-envelope',
-            filter_change: 'fa-filter'
-        };
-
-        const titleMap = {
-            property_view: 'Property Viewed',
-            save_property: 'Property Saved',
-            share_property: 'Property Shared',
-            property_search: 'Search Performed',
-            mortgage_calculation: 'Mortgage Calculated',
-            contact_form_submit: 'Contact Form Submitted',
-            filter_change: 'Filter Applied'
-        };
-
-        const activityItem = document.createElement('div');
-        activityItem.className = 'activity-item';
-        activityItem.innerHTML = `
-            <div class="activity-icon">
-                <i class="fas ${iconMap[interaction.type] || 'fa-circle'}" aria-hidden="true"></i>
-            </div>
-            <div class="activity-content">
-                <div class="activity-title">${titleMap[interaction.type] || 'Activity'}</div>
-                <div class="activity-details">${this.formatActivityDetails(interaction)}</div>
-            </div>
-            <div class="activity-time">Just now</div>
-        `;
-
-        // Add to top of feed
-        const firstChild = activityFeed.firstChild;
-        if (firstChild) {
-            activityFeed.insertBefore(activityItem, firstChild);
-        } else {
-            activityFeed.appendChild(activityItem);
-        }
-
-        // Keep only the last 10 activities
-        const items = activityFeed.querySelectorAll('.activity-item');
-        if (items.length > 10) {
-            for (let i = 10; i < items.length; i++) {
-                items[i].remove();
-            }
-        }
-    }
+    // Activity feed removed - now using interaction stats instead
 
     formatActivityDetails(interaction) {
         switch (interaction.type) {
