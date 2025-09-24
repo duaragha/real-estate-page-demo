@@ -360,24 +360,22 @@ class RealEstateAnalytics {
         ];
 
         performanceList.innerHTML = properties.map(property => `
-            <div class="performance-item">
-                <div class="performance-property">
-                    <img src="${property.image}" alt="${property.title}" class="performance-thumbnail">
-                    <div class="performance-info">
-                        <h4>${property.title}</h4>
-                        <p>${property.location}</p>
-                    </div>
+            <div class="property-stat-item">
+                <img src="${property.image}" alt="${property.title}" class="property-thumbnail">
+                <div class="property-info">
+                    <h4>${property.title}</h4>
+                    <p>${property.location}</p>
                 </div>
-                <div class="performance-metrics">
-                    <div class="performance-metric">
+                <div class="property-metrics">
+                    <div class="property-metric">
                         <div class="value">${property.views}</div>
                         <div class="label">Views</div>
                     </div>
-                    <div class="performance-metric">
+                    <div class="property-metric">
                         <div class="value">${property.saves}</div>
                         <div class="label">Saves</div>
                     </div>
-                    <div class="performance-metric">
+                    <div class="property-metric">
                         <div class="value">${property.inquiries}</div>
                         <div class="label">Inquiries</div>
                     </div>
