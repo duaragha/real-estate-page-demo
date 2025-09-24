@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug - Real Estate Website</title>
+
+    <!-- External Resources -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Local Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <style>
+        body {
+            padding-top: 100px;
+            background: #f8fafc;
+        }
+        .debug-info {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 20px auto;
+            max-width: 800px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .debug-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .debug-item:last-child {
+            border-bottom: none;
+        }
+        .status-ok { color: #48bb78; }
+        .status-error { color: #f56565; }
+        .header-test {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+            padding: 16px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Simplified Header for Testing -->
+    <header class="header-test">
+        <div class="container">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+                <div style="display: flex; align-items: center; gap: 8px; font-size: 1.25rem; font-weight: 700; color: #667eea;">
+                    <i class="fas fa-home"></i>
+                    Premium Real Estate
+                </div>
+                <nav style="display: flex; gap: 24px;">
+                    <a href="#" style="color: #667eea; font-weight: 500;">Home</a>
+                    <a href="#" style="color: #4a5568; font-weight: 500;">Properties</a>
+                    <a href="#" style="color: #4a5568; font-weight: 500;">About</a>
+                    <a href="#" style="color: #4a5568; font-weight: 500;">Contact</a>
+                </nav>
+                <div style="display: flex; gap: 12px;">
+                    <button class="btn btn-outline">Sign In</button>
+                    <button class="btn btn-primary">List Property</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="debug-info">
+        <h2 style="margin-bottom: 20px; color: #2d3748;">Website Debug Information</h2>
+
+        <div class="debug-item">
+            <span>Font Loading (Inter)</span>
+            <span id="font-status" class="status-error">❌ Checking...</span>
+        </div>
+
+        <div class="debug-item">
+            <span>Font Awesome Icons</span>
+            <span id="icon-status" class="status-error">❌ Checking...</span>
+        </div>
+
+        <div class="debug-item">
+            <span>CSS Variables</span>
+            <span id="css-vars-status" class="status-error">❌ Checking...</span>
+        </div>
+
+        <div class="debug-item">
+            <span>CSS Styles</span>
+            <span id="css-status" class="status-error">❌ Checking...</span>
+        </div>
+
+        <div class="debug-item">
+            <span>JavaScript Files</span>
+            <span id="js-status" class="status-error">❌ Loading...</span>
+        </div>
+
+        <div class="debug-item">
+            <span>Button Functionality</span>
+            <span id="button-status" class="status-error">❌ Testing...</span>
+        </div>
+    </div>
+
+    <div class="debug-info">
+        <h3>Interactive Tests</h3>
+        <div style="text-align: center; margin: 20px 0;">
+            <button class="btn btn-primary" onclick="testButton('primary')">Test Primary Button</button>
+            <button class="btn btn-outline" onclick="testButton('outline')">Test Outline Button</button>
+            <button class="btn btn-search" onclick="testButton('search')">Test Search Button</button>
+        </div>
+
+        <div style="text-align: center; margin: 20px 0;">
+            <i class="fas fa-home" style="font-size: 2rem; margin: 10px; color: #667eea;"></i>
+            <i class="fas fa-search" style="font-size: 2rem; margin: 10px; color: #48bb78;"></i>
+            <i class="fas fa-heart" style="font-size: 2rem; margin: 10px; color: #f56565;"></i>
+            <i class="fas fa-star" style="font-size: 2rem; margin: 10px; color: #ed8936;"></i>
+        </div>
+    </div>
+
+    <!-- Load JavaScript files for testing -->
+    <script src="js/data.js"></script>
+    <script src="js/analytics-core.js"></script>
+    <script src="js/event-tracker.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/mortgage-calculator.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+        // Debug script
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🔍 Starting debug checks...');
+
+            // Check font loading
+            setTimeout(() => {
+                const computedStyle = getComputedStyle(document.body);
+                const fontFamily = computedStyle.fontFamily;
+                const fontStatus = document.getElementById('font-status');
+
+                if (fontFamily.includes('Inter')) {
+                    fontStatus.innerHTML = '✅ Loaded';
+                    fontStatus.className = 'status-ok';
+                } else {
+                    fontStatus.innerHTML = '❌ Failed';
+                }
+            }, 1000);
+
+            // Check Font Awesome
+            const iconStatus = document.getElementById('icon-status');
+            const testIcon = document.querySelector('.fas.fa-home');
+            if (testIcon && getComputedStyle(testIcon).fontFamily.includes('Font Awesome')) {
+                iconStatus.innerHTML = '✅ Loaded';
+                iconStatus.className = 'status-ok';
+            } else {
+                iconStatus.innerHTML = '❌ Failed';
+            }
+
+            // Check CSS Variables
+            const cssVarsStatus = document.getElementById('css-vars-status');
+            const rootStyles = getComputedStyle(document.documentElement);
+            const primaryColor = rootStyles.getPropertyValue('--primary-color').trim();
+
+            if (primaryColor && primaryColor.includes('#667eea')) {
+                cssVarsStatus.innerHTML = '✅ Loaded';
+                cssVarsStatus.className = 'status-ok';
+            } else {
+                cssVarsStatus.innerHTML = '❌ Failed';
+            }
+
+            // Check CSS Styles
+            const cssStatus = document.getElementById('css-status');
+            const btnElement = document.querySelector('.btn-primary');
+            if (btnElement) {
+                const btnStyles = getComputedStyle(btnElement);
+                if (btnStyles.background.includes('linear-gradient')) {
+                    cssStatus.innerHTML = '✅ Loaded';
+                    cssStatus.className = 'status-ok';
+                } else {
+                    cssStatus.innerHTML = '❌ Failed';
+                }
+            }
+
+            // Check JavaScript
+            const jsStatus = document.getElementById('js-status');
+            let jsCount = 0;
+
+            if (typeof PropertyDataUtils !== 'undefined') jsCount++;
+            if (typeof PropertyAnalytics !== 'undefined') jsCount++;
+            if (typeof RealEstateApp !== 'undefined') jsCount++;
+
+            if (jsCount >= 2) {
+                jsStatus.innerHTML = '✅ Loaded (' + jsCount + '/3)';
+                jsStatus.className = 'status-ok';
+            } else {
+                jsStatus.innerHTML = '❌ Failed (' + jsCount + '/3)';
+            }
+
+            // Test button functionality
+            const buttonStatus = document.getElementById('button-status');
+            try {
+                const buttons = document.querySelectorAll('.btn');
+                if (buttons.length > 0) {
+                    buttonStatus.innerHTML = '✅ Working (' + buttons.length + ' buttons)';
+                    buttonStatus.className = 'status-ok';
+                } else {
+                    buttonStatus.innerHTML = '❌ No buttons found';
+                }
+            } catch (e) {
+                buttonStatus.innerHTML = '❌ Error: ' + e.message;
+            }
+
+            console.log('✅ Debug checks completed');
+        });
+
+        function testButton(type) {
+            alert('✅ ' + type.charAt(0).toUpperCase() + type.slice(1) + ' button is working!');
+            console.log('Button test:', type);
+        }
+    </script>
+</body>
+</html>

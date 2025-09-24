@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Premium Real Estate - Find your dream home with our extensive collection of luxury properties">
+    <meta name="keywords" content="real estate, homes for sale, luxury properties, buy house, rent apartment">
+    <title>Premium Real Estate - Find Your Dream Home</title>
+
+    <!-- Preconnect to external domains for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Main stylesheet -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Dashboard specific styles -->
+    <link rel="stylesheet" href="css/dashboard.css">
+
+    <!-- Google Maps API - Commented out for testing -->
+    <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap"></script> -->
+
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="header" role="banner">
+        <nav class="navbar" aria-label="Main navigation">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <a href="#" class="logo" aria-label="Premium Real Estate Home">
+                        <i class="fas fa-home" aria-hidden="true"></i>
+                        Premium Real Estate
+                    </a>
+                </div>
+
+                <div class="nav-menu" id="nav-menu">
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="#home" class="nav-link active">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#properties" class="nav-link">Properties</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#about" class="nav-link">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#mortgage-calculator" class="nav-link">Mortgage Calculator</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#analytics" class="nav-link">Market Analytics</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#contact" class="nav-link">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-actions">
+                    <button class="btn btn-outline" aria-label="Sign In">Sign In</button>
+                    <button class="btn btn-primary" aria-label="List Property">List Property</button>
+                </div>
+
+                <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                    <span class="hamburger"></span>
+                    <span class="hamburger"></span>
+                    <span class="hamburger"></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main role="main" id="main-content">
+        <!-- Hero Section -->
+        <section id="home" class="hero" aria-labelledby="hero-title">
+            <div class="hero-background">
+                <div class="hero-overlay"></div>
+            </div>
+            <div class="hero-content">
+                <div class="container">
+                    <h1 id="hero-title" class="hero-title">Find Your Dream Home</h1>
+                    <p class="hero-subtitle">Discover luxury properties in the most desirable locations</p>
+
+                    <!-- Property Search Form -->
+                    <form class="search-form" role="search" aria-label="Property search">
+                        <div class="search-group">
+                            <div class="search-field">
+                                <label for="location" class="search-label">Location</label>
+                                <input type="text" id="location" name="location" class="search-input"
+                                       placeholder="Enter city or neighborhood"
+                                       autocomplete="address-level2"
+                                       aria-describedby="location-help">
+                                <div id="location-help" class="sr-only">Enter the city or neighborhood where you want to search for properties</div>
+                            </div>
+
+                            <div class="search-field">
+                                <label for="property-type" class="search-label">Property Type</label>
+                                <select id="property-type" name="property-type" class="search-select"
+                                        aria-describedby="property-type-help">
+                                    <option value="">All Types</option>
+                                    <option value="house">House</option>
+                                    <option value="apartment">Apartment</option>
+                                    <option value="condo">Condo</option>
+                                    <option value="townhouse">Townhouse</option>
+                                </select>
+                                <div id="property-type-help" class="sr-only">Select the type of property you're looking for</div>
+                            </div>
+
+                            <div class="search-field">
+                                <label for="price-range" class="search-label">Price Range</label>
+                                <select id="price-range" name="price-range" class="search-select"
+                                        aria-describedby="price-range-help">
+                                    <option value="">Any Price</option>
+                                    <option value="0-300000">Under $300K</option>
+                                    <option value="300000-500000">$300K - $500K</option>
+                                    <option value="500000-750000">$500K - $750K</option>
+                                    <option value="750000-1000000">$750K - $1M</option>
+                                    <option value="1000000+">$1M+</option>
+                                </select>
+                                <div id="price-range-help" class="sr-only">Select your desired price range for properties</div>
+                            </div>
+
+                            <button type="submit" class="btn btn-search" aria-label="Search properties">
+                                <i class="fas fa-search" aria-hidden="true"></i>
+                                Search
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Properties Section -->
+        <section id="properties" class="featured-properties" aria-labelledby="featured-title">
+            <div class="container">
+                <div class="section-header">
+                    <h2 id="featured-title" class="section-title">Featured Properties</h2>
+                    <p class="section-subtitle">Handpicked properties for you</p>
+                </div>
+
+                <!-- Property Filters -->
+                <div class="property-filters" role="group" aria-label="Property filters">
+                    <button class="filter-btn active" data-filter="all">All Properties</button>
+                    <button class="filter-btn" data-filter="house">Houses</button>
+                    <button class="filter-btn" data-filter="apartment">Apartments</button>
+                    <button class="filter-btn" data-filter="condo">Condos</button>
+                    <button class="filter-btn" data-filter="townhouse">Townhouses</button>
+                </div>
+
+                <!-- Property Grid -->
+                <div class="property-grid" id="property-grid" role="region" aria-label="Property listings">
+                    <!-- Properties will be dynamically loaded here -->
+                </div>
+
+                <!-- Load More Button -->
+                <div class="load-more-container">
+                    <button class="btn btn-outline btn-load-more" id="load-more">
+                        Load More Properties
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about" aria-labelledby="about-title">
+            <div class="container">
+                <div class="about-content">
+                    <div class="about-text">
+                        <h2 id="about-title" class="section-title">Why Choose Us</h2>
+                        <p class="about-description">
+                            With over 15 years of experience in luxury real estate, we provide unmatched service
+                            and expertise to help you find the perfect property. Our team of dedicated professionals
+                            is committed to making your real estate journey seamless and successful.
+                        </p>
+
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div class="stat-number">500+</div>
+                                <div class="stat-label">Properties Sold</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">98%</div>
+                                <div class="stat-label">Client Satisfaction</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">15+</div>
+                                <div class="stat-label">Years Experience</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">24/7</div>
+                                <div class="stat-label">Support Available</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="about-image">
+                        <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=600&h=400&fit=crop&crop=center" alt="Professional real estate team" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mortgage Calculator Section -->
+        <section id="mortgage-calculator" class="mortgage-calculator" aria-labelledby="calculator-title">
+            <div class="container">
+                <div class="section-header">
+                    <h2 id="calculator-title" class="section-title">Mortgage Calculator</h2>
+                    <p class="section-subtitle">Calculate your monthly mortgage payments</p>
+                </div>
+
+                <div class="calculator-content">
+                    <div class="calculator-form">
+                        <div class="form-group">
+                            <label for="home-price" class="form-label">Home Price</label>
+                            <input type="number" id="home-price" class="form-input" placeholder="500000" value="500000">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="down-payment" class="form-label">Down Payment</label>
+                            <input type="number" id="down-payment" class="form-input" placeholder="100000" value="100000">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="loan-term" class="form-label">Loan Term (Years)</label>
+                            <select id="loan-term" class="form-input">
+                                <option value="15">15 years</option>
+                                <option value="20">20 years</option>
+                                <option value="25">25 years</option>
+                                <option value="30" selected>30 years</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="interest-rate" class="form-label">Interest Rate (%)</label>
+                            <input type="number" id="interest-rate" class="form-input" placeholder="6.5" value="6.5" step="0.1">
+                        </div>
+
+                        <button type="button" id="calculate-mortgage" class="btn btn-primary btn-full">
+                            Calculate Payment
+                        </button>
+                    </div>
+
+                    <div class="calculator-results">
+                        <div class="result-card">
+                            <h3>Monthly Payment Breakdown</h3>
+                            <div class="payment-breakdown">
+                                <div class="payment-item">
+                                    <span class="payment-label">Principal & Interest:</span>
+                                    <span class="payment-value" id="principal-interest">$0</span>
+                                </div>
+                                <div class="payment-item">
+                                    <span class="payment-label">Property Tax (est.):</span>
+                                    <span class="payment-value" id="property-tax">$0</span>
+                                </div>
+                                <div class="payment-item">
+                                    <span class="payment-label">Home Insurance (est.):</span>
+                                    <span class="payment-value" id="home-insurance">$0</span>
+                                </div>
+                                <div class="payment-item total">
+                                    <span class="payment-label">Total Monthly Payment:</span>
+                                    <span class="payment-value" id="total-payment">$0</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="result-card">
+                            <h3>Loan Summary</h3>
+                            <div class="loan-summary">
+                                <div class="summary-item">
+                                    <span class="summary-label">Loan Amount:</span>
+                                    <span class="summary-value" id="loan-amount">$0</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span class="summary-label">Total Interest:</span>
+                                    <span class="summary-value" id="total-interest">$0</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span class="summary-label">Total Cost:</span>
+                                    <span class="summary-value" id="total-cost">$0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Market Analytics Dashboard -->
+        <section id="analytics" class="analytics-section" aria-labelledby="analytics-title">
+            <div class="container">
+                <div class="section-header">
+                    <h2 id="analytics-title" class="section-title">
+                        <i class="fas fa-chart-line" aria-hidden="true"></i> Market Analytics Dashboard
+                    </h2>
+                    <p class="section-subtitle">Real-time MLS data, listing performance, and market insights for informed real estate decisions</p>
+                </div>
+
+                <div class="analytics-dashboard">
+                    <!-- Key Performance Metrics -->
+                    <div class="analytics-grid">
+                        <div class="analytics-card metric-card">
+                            <div class="metric-header">
+                                <h3>Total Listings</h3>
+                                <i class="fas fa-home" aria-hidden="true"></i>
+                            </div>
+                            <div class="metric-value" id="total-listings">0</div>
+                            <div class="metric-change positive">
+                                <i class="fas fa-arrow-up" aria-hidden="true"></i>
+                                <span>+12% from last month</span>
+                            </div>
+                        </div>
+
+                        <div class="analytics-card metric-card">
+                            <div class="metric-header">
+                                <h3>Avg. Days on Market</h3>
+                                <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                            </div>
+                            <div class="metric-value" id="avg-days-market">0</div>
+                            <div class="metric-change negative">
+                                <i class="fas fa-arrow-down" aria-hidden="true"></i>
+                                <span>-8% from last month</span>
+                            </div>
+                        </div>
+
+                        <div class="analytics-card metric-card">
+                            <div class="metric-header">
+                                <h3>Median Sale Price</h3>
+                                <i class="fas fa-dollar-sign" aria-hidden="true"></i>
+                            </div>
+                            <div class="metric-value" id="median-price">$0</div>
+                            <div class="metric-change positive">
+                                <i class="fas fa-arrow-up" aria-hidden="true"></i>
+                                <span>+5% from last month</span>
+                            </div>
+                        </div>
+
+                        <div class="analytics-card metric-card">
+                            <div class="metric-header">
+                                <h3>Total Page Views</h3>
+                                <i class="fas fa-eye" aria-hidden="true"></i>
+                            </div>
+                            <div class="metric-value" id="total-views">0</div>
+                            <div class="metric-change positive">
+                                <i class="fas fa-arrow-up" aria-hidden="true"></i>
+                                <span>+23% from last month</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charts Section -->
+                    <div class="charts-section">
+                        <div class="chart-container">
+                            <div class="analytics-card">
+                                <h3>Listing Interactions</h3>
+                                <canvas id="interactions-chart" width="400" height="200"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="chart-container">
+                            <div class="analytics-card">
+                                <h3>Property Type Distribution</h3>
+                                <canvas id="property-types-chart" width="400" height="200"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="analytics-card activity-card">
+                        <h3>Recent Listing Activity</h3>
+                        <div class="activity-feed" id="activity-feed">
+                            <div class="activity-placeholder">
+                                <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+                                <span>Loading recent activity...</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Top Performing Properties -->
+                    <div class="analytics-card performance-card">
+                        <h3>Top Performing Properties</h3>
+                        <div class="performance-list" id="performance-list">
+                            <div class="performance-placeholder">
+                                <i class="fas fa-chart-bar" aria-hidden="true"></i>
+                                <span>Calculating performance metrics...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact" aria-labelledby="contact-title">
+            <div class="container">
+                <div class="section-header">
+                    <h2 id="contact-title" class="section-title">Get In Touch</h2>
+                    <p class="section-subtitle">Ready to find your dream home? Let's talk!</p>
+                </div>
+
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h3>Address</h3>
+                                <p>123 Real Estate Ave<br>Downtown District, NY 10001</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone" aria-hidden="true"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h3>Phone</h3>
+                                <p><a href="tel:+1234567890">(123) 456-7890</a></p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope" aria-hidden="true"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h3>Email</h3>
+                                <p><a href="mailto:info@premiumrealestate.com">info@premiumrealestate.com</a></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form class="contact-form" aria-label="Contact form">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Full Name *</label>
+                            <input type="text" id="name" name="name" class="form-input" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email Address *</label>
+                            <input type="email" id="email" name="email" class="form-input" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" class="form-input">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message" class="form-label">Message *</label>
+                            <textarea id="message" name="message" class="form-textarea" rows="5" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-full">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-brand">
+                        <a href="#" class="logo" aria-label="Premium Real Estate Home">
+                            <i class="fas fa-home" aria-hidden="true"></i>
+                            Premium Real Estate
+                        </a>
+                        <p class="footer-description">
+                            Your trusted partner in finding the perfect home.
+                            Excellence in real estate since 2008.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h3 class="footer-title">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#properties">Properties</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3 class="footer-title">Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Buy Property</a></li>
+                        <li><a href="#">Sell Property</a></li>
+                        <li><a href="#">Rent Property</a></li>
+                        <li><a href="#">Property Management</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3 class="footer-title">Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Follow us on Facebook">
+                            <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Follow us on Twitter">
+                            <i class="fab fa-twitter" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Follow us on Instagram">
+                            <i class="fab fa-instagram" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Follow us on LinkedIn">
+                            <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    &copy; 2024 Premium Real Estate. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Property Detail Modal -->
+    <div class="modal" id="property-modal" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
+        <div class="modal-overlay" data-close-modal></div>
+        <div class="modal-content">
+            <button class="modal-close" data-close-modal aria-label="Close property details">
+                <i class="fas fa-times" aria-hidden="true"></i>
+            </button>
+            <div class="modal-body" id="modal-body">
+                <!-- Property details will be dynamically loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Analytics and Tracking Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/analytics-core.js"></script>
+    <script src="js/event-tracker.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/mortgage-calculator.js"></script>
+    <!-- Essential Scripts -->
+    <script src="js/simple-app.js"></script>
+    <script src="js/analytics.js"></script>
+
+    <!-- Skip to content link for screen readers -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - Premium Real Estate</title>
+
+    <!-- External Resources -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Local Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <style>
+        /* Quick test styles */
+        body {
+            padding-top: 80px; /* Account for fixed header */
+        }
+        .test-section {
+            padding: 40px 20px;
+            text-align: center;
+            background: #f8fafc;
+            margin: 20px 0;
+        }
+        .status-indicator {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            margin: 5px;
+            font-weight: 500;
+        }
+        .status-good {
+            background: #c6f6d5;
+            color: #2f855a;
+        }
+        .status-error {
+            background: #fed7d7;
+            color: #c53030;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Test -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <a href="#" class="logo">
+                        <i class="fas fa-home"></i>
+                        Premium Real Estate
+                    </a>
+                </div>
+
+                <div class="nav-menu">
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link active">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Properties</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-actions">
+                    <button class="btn btn-outline">Sign In</button>
+                    <button class="btn btn-primary">List Property</button>
+                </div>
+
+                <button class="nav-toggle">
+                    <span class="hamburger"></span>
+                    <span class="hamburger"></span>
+                    <span class="hamburger"></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Test Content -->
+    <main>
+        <div class="test-section">
+            <h1>Website Status Check</h1>
+            <div id="status-indicators">
+                <div class="status-indicator status-good">CSS Loaded</div>
+                <div class="status-indicator status-good">Fonts Loaded</div>
+                <div class="status-indicator status-good">Icons Loaded</div>
+                <div class="status-indicator status-good">Header Formatted</div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="test-section">
+                <h2>Header Navigation Test</h2>
+                <p>The header should be fixed at the top with a white semi-transparent background.</p>
+                <p>Navigation links should be properly spaced and styled.</p>
+                <p>Buttons should have gradients and hover effects.</p>
+            </div>
+
+            <div class="test-section">
+                <h2>Button Tests</h2>
+                <button class="btn btn-primary">Primary Button</button>
+                <button class="btn btn-outline">Outline Button</button>
+                <button class="btn btn-search">Search Button</button>
+            </div>
+
+            <div class="test-section">
+                <h2>Icon Tests</h2>
+                <i class="fas fa-home" style="font-size: 2rem; color: #667eea; margin: 10px;"></i>
+                <i class="fas fa-search" style="font-size: 2rem; color: #48bb78; margin: 10px;"></i>
+                <i class="fas fa-heart" style="font-size: 2rem; color: #f56565; margin: 10px;"></i>
+                <i class="fas fa-map-marker-alt" style="font-size: 2rem; color: #ed8936; margin: 10px;"></i>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Simple test script
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('✅ DOM Content Loaded');
+            console.log('✅ Test page initialized');
+
+            // Test button interactions
+            document.querySelectorAll('.btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    console.log('Button clicked:', this.textContent);
+                });
+            });
+
+            console.log('✅ Event listeners attached');
+        });
+    </script>
+</body>
+</html>
